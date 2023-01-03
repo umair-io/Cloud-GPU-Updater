@@ -197,14 +197,6 @@ function cloudprovider {
                     }
              )
 
-    $paperspace = $(
-                        Try {
-                            (Invoke-WebRequest -uri http://metadata.paperspace.com/meta-data/machine -TimeoutSec 5)
-                            }
-                        catch {
-                            }
-                    )
-
     $azure = $(
                   Try {(Invoke-WebRequest -Uri "http://169.254.169.254/metadata/instance?api-version=2018-10-01" -Headers @{Metadata="true"} -TimeoutSec 5)}
                   catch {}              
@@ -217,9 +209,6 @@ function cloudprovider {
     Elseif ($AWS.StatusCode -eq 200) {
         "AWS"
         } 
-    Elseif ($paperspace.StatusCode -eq 200) {
-        "Paperspace"
-        }
     Elseif ($azure.StatusCode -eq 200) {
         "Azure"
         }
